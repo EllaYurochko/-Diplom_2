@@ -31,16 +31,6 @@ public class CreateOrderTest {
     }
 
     @Test
-    @DisplayName("Создание заказа с авторизацией и с ингредиентами")
-    public void createOrderWithAuthorizationAndWithIngredientsTest() {
-        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(ingredientsList));
-        orderClient.createOrderWithAuthorization(orderRequest, accessToken)
-                .assertThat()
-                .statusCode(SC_OK)
-                .body("success", equalTo(true));
-    }
-
-    @Test
     @DisplayName("Создание заказа с авторизацией и без ингредиентов")
     public void createOrderWithAuthorizationAndWithoutIngredientsTest() {
         orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(null));;
@@ -82,6 +72,27 @@ public class CreateOrderTest {
                 .statusCode(400)
                 .and().body("success",equalTo(false));
 
+    }
+
+    @Test
+    @DisplayName("Создание заказа с авторизацией и невалидным хешем ингредиентов")
+    public void createOrderWithNotValidHashIngredientsTest() {
+        List<String> newIngredients = List.of("-", "61c0c5a71d1f82001bdaa");
+        orderRequest = new OrderRequest(newIngredients);
+        orderClient.createOrderWithAuthorization(orderRequest, accessToken)
+                .assertThat()
+                .statusCode(SC_INTERNAL_SERVER_ERROR);
+
+    }
+
+    @Test
+    @DisplayName("Создание заказа с авторизацией и с ингредиентами")
+    public void createOrderWithAuthorizationAndWithIngredientsTest() {
+        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(ingredientsList));
+        orderClient.createOrderWithAuthorization(orderRequest, accessToken)
+                .assertThat()
+                .statusCode(SC_OK)
+                .body("success", equalTo(true));
     }
 
     @After
