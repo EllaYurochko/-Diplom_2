@@ -31,6 +31,16 @@ public class CreateOrderTest {
     }
 
     @Test
+    @DisplayName("Создание заказа с авторизацией и с ингредиентами")
+    public void createOrderWithAuthorizationAndWithIngredientsTest() {
+        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(ingredientsList));
+        orderClient.createOrderWithAuthorization(orderRequest, accessToken)
+                .assertThat()
+                .statusCode(SC_OK)
+                .body("success", equalTo(true));
+    }
+
+    @Test
     @DisplayName("Создание заказа с авторизацией и без ингредиентов")
     public void createOrderWithAuthorizationAndWithoutIngredientsTest() {
         orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(null));;
@@ -63,18 +73,6 @@ public class CreateOrderTest {
     }
 
     @Test
-    @DisplayName("Создание заказа с авторизацией и неверным хешем ингредиентов")
-    public void createOrderWithInvalidHashIngredientsTest() {
-        List<String> newIngredients = List.of("61c0c5a70d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6p");
-        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(newIngredients));
-        orderClient.createOrderWithAuthorization(orderRequest, accessToken)
-                .assertThat()
-                .statusCode(400)
-                .and().body("success",equalTo(false));
-
-    }
-
-    @Test
     @DisplayName("Создание заказа с авторизацией и невалидным хешем ингредиентов")
     public void createOrderWithNotValidHashIngredientsTest() {
         List<String> newIngredients = List.of("-", "61c0c5a71d1f82001bdaa");
@@ -86,14 +84,17 @@ public class CreateOrderTest {
     }
 
     @Test
-    @DisplayName("Создание заказа с авторизацией и с ингредиентами")
-    public void createOrderWithAuthorizationAndWithIngredientsTest() {
-        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(ingredientsList));
+    @DisplayName("Создание заказа с авторизацией и неверным хешем ингредиентов")
+    public void createOrderWithInvalidHashIngredientsTest() {
+        List<String> newIngredients = List.of("61c0c5a70d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6p");
+        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(newIngredients));
         orderClient.createOrderWithAuthorization(orderRequest, accessToken)
                 .assertThat()
-                .statusCode(SC_OK)
-                .body("success", equalTo(true));
+                .statusCode(400)
+                .and().body("success",equalTo(false));
+
     }
+
 
     @After
     @DisplayName("Удаление пользователя")

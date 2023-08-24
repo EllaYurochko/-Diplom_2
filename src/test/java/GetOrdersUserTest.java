@@ -47,10 +47,6 @@ public class GetOrdersUserTest {
     @DisplayName("Получение заказов неавторизованного пользователя")
     public void getOrdersWithoutAuthorizationUserTest() {
         orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(ingredientsList));
-        orderClient.createOrderWithAuthorization(orderRequest, accessToken)
-                .assertThat()
-                .statusCode(SC_OK)
-                .body("success", equalTo(true));
         orderClient.getOrdersUserWithoutAuthorization()
                 .assertThat()
                 .statusCode(SC_UNAUTHORIZED)
