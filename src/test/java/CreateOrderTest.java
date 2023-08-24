@@ -75,11 +75,13 @@ public class CreateOrderTest {
     @Test
     @DisplayName("Создание заказа с авторизацией и неверным хешем ингредиентов")
     public void createOrderWithInvalidHashIngredientsTest() {
-        List<String> newIngredients = List.of("hgjfyr6584vchdye647ecx", "hgjfyr6594vchdye647ecx");
+        List<String> newIngredients = List.of("61c0c5a70d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6p");
         orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(newIngredients));
         orderClient.createOrderWithAuthorization(orderRequest, accessToken)
                 .assertThat()
-                .statusCode(SC_INTERNAL_SERVER_ERROR);
+                .statusCode(400)
+                .and().body("success",equalTo(false));
+
     }
 
     @After
