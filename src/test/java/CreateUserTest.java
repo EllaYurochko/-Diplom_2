@@ -70,7 +70,7 @@ public class CreateUserTest {
 
     @Test
     @DisplayName("Регистрация пользователя который уже существует")
-    public void сreateUserNotUniqueTest() {
+    public void createUserNotUniqueTest() {
         UserRequest userRequest = UserRequest.getRandomUserRequest();
         response = userClient.create(userRequest)
                 .assertThat()
@@ -87,8 +87,8 @@ public class CreateUserTest {
 
     @After
     @DisplayName("Удаление пользователя")
-    public  void tearDown(){
-        if (accessToken != null){
+    public void tearDown() {
+        if (accessToken != null) {
             userClient.deleteUser(accessToken)
                     .assertThat().statusCode(SC_ACCEPTED)
                     .body("success", equalTo(true));

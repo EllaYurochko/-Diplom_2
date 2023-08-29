@@ -76,8 +76,8 @@ public class LoginUserTest {
 
     @After
     @DisplayName("Удаление пользователя")
-    public  void tearDown(){
-        if (accessToken != null){
+    public void tearDown() {
+        if (accessToken != null) {
             userSteps.deleteUser(accessToken)
                     .assertThat().statusCode(SC_ACCEPTED)
                     .body("success", equalTo(true));

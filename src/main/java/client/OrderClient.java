@@ -11,7 +11,7 @@ public class OrderClient extends RestClient {
     public static final String INGREDIENTS = "api/ingredients";
 
     @Step("Создание заказа с авторизацией")
-    public ValidatableResponse createOrderWithAuthorization(OrderRequest ingredients, String accessToken){
+    public ValidatableResponse createOrderWithAuthorization(OrderRequest ingredients, String accessToken) {
         return given()
                 .header("authorization", accessToken)
                 .spec(getDefaultRequestSpec())
@@ -21,7 +21,7 @@ public class OrderClient extends RestClient {
     }
 
     @Step("Создание заказа без авторизации")
-    public ValidatableResponse createOrderWithoutAuthorization(OrderRequest ingredients){
+    public ValidatableResponse createOrderWithoutAuthorization(OrderRequest ingredients) {
         return given()
                 .spec(getDefaultRequestSpec())
                 .body(ingredients)
@@ -30,7 +30,7 @@ public class OrderClient extends RestClient {
     }
 
     @Step("Получение заказов пользователя с авторизацией")
-    public ValidatableResponse getOrdersUserWithAuthorization(String accessToken){
+    public ValidatableResponse getOrdersUserWithAuthorization(String accessToken) {
         return given()
                 .header("authorization", accessToken)
                 .spec(getDefaultRequestSpec())

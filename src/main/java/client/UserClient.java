@@ -41,7 +41,7 @@ public class UserClient extends RestClient {
     }
 
     @Step("Изменение данных пользователя")
-    public ValidatableResponse updateDataUser(UserRequest userRequest, String  accessToken) {
+    public ValidatableResponse updateDataUser(UserRequest userRequest, String accessToken) {
         return given()
                 .header("Authorization", accessToken)
                 .spec(getDefaultRequestSpec())

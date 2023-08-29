@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 public class LoginRequest {
     private String email;
     private String password;
+
     public String getEmail() {
         return email;
     }
@@ -30,7 +31,7 @@ public class LoginRequest {
         return loginRequest;
     }
 
-    @Step ("Ввод данных с неверным email")
+    @Step("Ввод данных с неверным email")
     public static LoginRequest getLoginRequestWithInvalidEmailField(UserRequest userRequest) {
         LoginRequest loginRequest = new LoginRequest();
         Faker faker = new Faker();

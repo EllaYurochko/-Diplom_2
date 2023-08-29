@@ -14,7 +14,7 @@ public class UpdateDataUserTest {
     private String accessToken;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         userSteps = new UserClient();
 
     }
@@ -32,7 +32,7 @@ public class UpdateDataUserTest {
                 .path("accessToken");
         userRequest.setEmail(RandomStringUtils.randomAlphabetic(10) + "@yandex.ru");
         String newEmail = userRequest.getEmail().toLowerCase();
-        userSteps.updateDataUser(userRequest,accessToken)
+        userSteps.updateDataUser(userRequest, accessToken)
                 .assertThat()
                 .statusCode(SC_OK)
                 .body("success", equalTo(true))
@@ -51,7 +51,7 @@ public class UpdateDataUserTest {
                 .extract()
                 .path("accessToken");
         userRequest.setName(RandomStringUtils.randomAlphabetic(10));
-        userSteps.updateDataUser(userRequest,accessToken)
+        userSteps.updateDataUser(userRequest, accessToken)
                 .assertThat()
                 .statusCode(SC_OK)
                 .body("success", equalTo(true))
@@ -70,12 +70,11 @@ public class UpdateDataUserTest {
                 .extract()
                 .path("accessToken");
         userRequest.setEmail(RandomStringUtils.randomAlphabetic(10) + "@yandex.ru");
-        String newEmail = userRequest.getEmail().toLowerCase();
-        userSteps.updateDataUser (userRequest,"")
+        userSteps.updateDataUser(userRequest, "")
                 .assertThat()
                 .statusCode(SC_UNAUTHORIZED)
                 .body("success", equalTo(false))
-                .body("message",equalTo("You should be authorised") );
+                .body("message", equalTo("You should be authorised"));
     }
 
     @Test
@@ -90,11 +89,11 @@ public class UpdateDataUserTest {
                 .extract()
                 .path("accessToken");
         userRequest.setName(RandomStringUtils.randomAlphabetic(10));
-        userSteps.updateDataUser (userRequest,"")
+        userSteps.updateDataUser(userRequest, "")
                 .assertThat()
                 .statusCode(SC_UNAUTHORIZED)
                 .body("success", equalTo(false))
-                .body("message",equalTo("You should be authorised") );
+                .body("message", equalTo("You should be authorised"));
     }
 
     @After

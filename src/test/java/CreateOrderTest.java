@@ -43,7 +43,8 @@ public class CreateOrderTest {
     @Test
     @DisplayName("Создание заказа с авторизацией и без ингредиентов")
     public void createOrderWithAuthorizationAndWithoutIngredientsTest() {
-        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(null));;
+        orderRequest = new OrderRequest(OrderRequest.getRandomIngredients(null));
+        ;
         orderClient.createOrderWithAuthorization(orderRequest, accessToken)
                 .assertThat()
                 .statusCode(400)
@@ -91,7 +92,7 @@ public class CreateOrderTest {
         orderClient.createOrderWithAuthorization(orderRequest, accessToken)
                 .assertThat()
                 .statusCode(400)
-                .and().body("success",equalTo(false));
+                .and().body("success", equalTo(false));
 
     }
 
